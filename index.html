@@ -1,0 +1,1034 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Warm Static — a software atelier</title>
+  <meta name="description" content="Warm Static is a software atelier. We take a feeling and carry it through to shipped software. One sheet. Nine panels. Printed in Rotterdam." />
+  <meta name="theme-color" content="#0d0a08" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23e8e2d4'/%3E%3Cg fill='none' stroke='%2317120e' stroke-width='2'%3E%3Ccircle cx='32' cy='32' r='15'/%3E%3Cpath d='M32 2v60M2 32h60'/%3E%3C/g%3E%3Ccircle cx='32' cy='32' r='5' fill='%23ff3b00'/%3E%3C/svg%3E" />
+  <link rel="preload" href="/fonts/archivo-var.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/bodoni-italic-var.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+
+<a class="skip-link" href="#panel-2">Skip to the sheet</a>
+
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M1.5 12h20M14 4.5l7.5 7.5-7.5 7.5"/></symbol>
+    <symbol id="i-arrow-l" viewBox="0 0 24 24"><path d="M22.5 12h-20M10 4.5L2.5 12l7.5 7.5"/></symbol>
+    <symbol id="i-scissors" viewBox="0 0 24 24"><circle cx="5" cy="19" r="2.4"/><circle cx="5" cy="5" r="2.4"/><path d="M6.9 6.9L21 21M21 3L6.9 17.1"/></symbol>
+    <symbol id="i-reg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="6.5"/><path d="M12 0v24M0 12h24"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M3 13.5l5.5 5.5L21 4.5"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 3v18M3 12h18"/></symbol>
+    <symbol id="i-fold" viewBox="0 0 24 24"><path d="M1 18l6-9 5 7 4-6 7 8"/></symbol>
+    <symbol id="i-rot" viewBox="0 0 24 24"><path d="M20.5 8A9 9 0 1 0 21 14"/><path d="M21 3v5h-5"/></symbol>
+  </defs>
+</svg>
+
+<div class="room" aria-hidden="true">
+  <div class="room-glow"></div>
+  <div class="room-dots"></div>
+  <div class="room-vignette"></div>
+</div>
+
+<!-- press furniture, fixed around the sheet -->
+<div class="chrome chrome--tl">
+  <svg class="ico reg-ico" aria-hidden="true"><use href="#i-reg"/></svg>
+  <span class="mono">WARM STATIC</span>
+  <span class="mono dim">/ A SOFTWARE ATELIER</span>
+</div>
+
+<div class="chrome chrome--tr">
+  <span class="mono" id="clock" aria-live="off">00:00:00</span>
+  <span class="mono dim">ROTTERDAM</span>
+  <button class="chip" id="heatBtn" type="button" aria-pressed="true"><span class="led" aria-hidden="true"></span>WARM INK</button>
+</div>
+
+<div class="chrome chrome--bl">
+  <div class="folio-big" id="folioBig">01</div>
+  <div class="folio-meta">
+    <div class="mono" id="folioName">COVER</div>
+    <div class="track" aria-hidden="true">
+      <i style="--i:0"></i><i style="--i:1"></i><i style="--i:2"></i><i style="--i:3"></i><i style="--i:4"></i><i style="--i:5"></i><i style="--i:6"></i><i style="--i:7"></i><i style="--i:8"></i>
+    </div>
+    <div class="mono dim"><span id="folioNow">01</span> / 09 &nbsp;·&nbsp; ONE SHEET</div>
+  </div>
+</div>
+
+<div class="chrome chrome--br">
+  <div class="monitor" id="monitor" aria-label="Sheet monitor">
+    <div class="monitor-title mono">SHEET MONITOR</div>
+    <div class="monitor-sheet" id="monitorSheet" title="Click a fold to move along the sheet"></div>
+    <div class="monitor-read mono" id="monitorRead">01 — COVER</div>
+  </div>
+  <div class="chrome-btns">
+    <button class="chip" id="proofBtn" type="button">PROOF <svg class="ico"><use href="#i-rot"/></svg></button>
+    <button class="chip" id="soundBtn" type="button" aria-pressed="false">SOUND <span class="dim">OFF</span></button>
+  </div>
+</div>
+
+<div class="hint" id="hint" aria-hidden="true">
+  <span class="mono">DRAG / SCROLL / ARROWS</span>
+  <span class="hint-line"></span>
+  <svg class="ico"><use href="#i-arrow"/></svg>
+</div>
+
+<main class="stage" id="stage">
+  <div class="sheet" id="sheet">
+
+    <!-- ═══════════════ 01 COVER ═══════════════ -->
+    <section class="panel p-cover" id="panel-1" data-index="0" data-title="COVER" aria-label="Cover">
+      <div class="paper">
+        <div class="p-inner">
+          <div class="cover-top">
+            <div class="mono meta-caps">A software atelier <span class="dot">·</span> Rotterdam <span class="dot">·</span> EST. 2019</div>
+            <div class="mono meta-caps">Issue 04 <span class="dot">·</span> Autumn 2026 <span class="dot">·</span> One sheet</div>
+          </div>
+
+          <div class="cover-mid">
+            <div class="cover-copy">
+              <div class="kicker-row">
+                <span class="rule-short"></span>
+                <span class="mono kicker">SOFTWARE WITH A BODY TEMPERATURE</span>
+              </div>
+              <h1 class="cover-head serif-i misreg" data-reg="1">We build software you can <em class="warm-word">feel</em> from the next room.</h1>
+              <p class="cover-sub">Feeling first. Engineering immediately after. No pitch decks, no discovery theatre, no “solutions”.</p>
+              <div class="cover-tags mono">
+                <span>PRODUCT</span><span>IDENTITY</span><span>ENGINEERING</span><span>5-WEEK EDITIONS</span>
+              </div>
+              <nav class="cover-contents" aria-label="Contents: nine panels">
+                <div class="contents-head mono">IN THIS ISSUE <span class="dim">/ EIGHT PANELS, READ SIDEWAYS</span></div>
+                <div class="contents-grid">
+                  <button class="contents-row" type="button" data-goto="1"><span class="mono c-num">02</span><span class="c-title serif-i">The Premise</span><span class="c-dots" aria-hidden="true"></span></button>
+                  <button class="contents-row" type="button" data-goto="2"><span class="mono c-num">03</span><span class="c-title serif-i">The Method</span><span class="c-dots" aria-hidden="true"></span></button>
+                  <button class="contents-row" type="button" data-goto="3"><span class="mono c-num">04</span><span class="c-title serif-i">Aperture</span><span class="c-dots" aria-hidden="true"></span></button>
+                  <button class="contents-row" type="button" data-goto="4"><span class="mono c-num">05</span><span class="c-title serif-i">Night Kitchen</span><span class="c-dots" aria-hidden="true"></span></button>
+                  <button class="contents-row" type="button" data-goto="5"><span class="mono c-num">06</span><span class="c-title serif-i">Materials</span><span class="c-dots" aria-hidden="true"></span></button>
+                  <button class="contents-row" type="button" data-goto="6"><span class="mono c-num">07</span><span class="c-title serif-i">Receipts</span><span class="c-dots" aria-hidden="true"></span></button>
+                  <button class="contents-row" type="button" data-goto="7"><span class="mono c-num">08</span><span class="c-title serif-i">Editions</span><span class="c-dots" aria-hidden="true"></span></button>
+                  <button class="contents-row" type="button" data-goto="8"><span class="mono c-num">09</span><span class="c-title serif-i">Colophon</span><span class="c-dots" aria-hidden="true"></span></button>
+                </div>
+              </nav>
+            </div>
+
+            <figure class="specimen">
+              <div class="specimen-plate">
+                <canvas id="ribbon" aria-label="A folded ribbon printed in two inks, turning slowly" role="img"></canvas>
+                <div class="plate-rule plate-rule--t" aria-hidden="true"></div>
+                <div class="plate-rule plate-rule--b" aria-hidden="true"></div>
+                <span class="plate-mark plate-mark--tl" aria-hidden="true"></span>
+                <span class="plate-mark plate-mark--br" aria-hidden="true"></span>
+                <span class="mono plate-index">PLATE I</span>
+              </div>
+              <figcaption class="specimen-cap mono">
+                <span class="cap-key">FIG. 1</span>
+                <span>THE SHEET, FOLDED NINE TIMES.<br/>HALFTONE, TWO INKS, 2026.</span>
+              </figcaption>
+              <span class="specimen-note serif-i">the ink is warm.<br/>move slowly.</span>
+            </figure>
+          </div>
+
+          <div class="cover-name">
+            <div class="name-rule" aria-hidden="true"></div>
+            <h2 class="masthead" aria-label="Warm Static">
+              <span class="mast-fit" data-fit>WARM STATIC</span>
+            </h2>
+          </div>
+
+          <div class="cover-foot">
+            <div class="barcode-wrap">
+              <svg class="barcode" data-barcode="WS-04-2026" aria-hidden="true"></svg>
+              <div class="mono dim barcode-num">7 041902 260004</div>
+            </div>
+            <div class="mono cover-foot-mid">€0.00 <span class="dim">/ NOT FOR RESALE</span></div>
+            <div class="mono cover-foot-mid">NINE PANELS <span class="dim">/ NO SCROLLBAR</span></div>
+            <button class="cover-turn" type="button" data-goto="1">
+              <span class="mono">TURN THE SHEET</span>
+              <svg class="ico"><use href="#i-arrow"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="latent latent--cover" aria-hidden="true">
+          <div class="cc-tag mono">CARBON COPY / 01</div>
+          <p class="lat latent--a">You found the warm part. Keep moving; the ink remembers.</p>
+          <p class="lat latent--b">Printed while you waited.</p>
+          <span class="lat-mark latent--c">✳</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ 02 THE PREMISE ═══════════════ -->
+    <section class="panel p-premise" id="panel-2" data-index="1" data-title="THE PREMISE" aria-label="The premise">
+      <div class="paper">
+        <div class="p-inner">
+          <header class="p-head">
+            <div class="mono kicker"><span class="kicker-num">01</span> THE PREMISE</div>
+            <div class="mono dim">PANEL 02 / 09</div>
+          </header>
+
+          <div class="big-ghost" aria-hidden="true">01</div>
+
+          <h2 class="display-serif premise-head serif-i misreg">Taste is a technical skill.</h2>
+
+          <div class="premise-grid">
+            <div class="premise-main">
+              <p class="lede">Anyone can produce an interface in an afternoon. Knowing which one deserves to exist takes a decade.</p>
+              <div class="cols">
+                <p><span class="dropcap">W</span>arm Static is a software atelier of six, working above a working print shop in Rotterdam. We take a feeling — a sentence, a texture, occasionally a smell — and carry it through to software that ships. We don’t write pitch decks. We write first drafts, quickly, then throw most of them away.</p>
+                <p>Vibe coding has a bad name because most of it stops at the first draft. We use the same instinct, then do the unglamorous part: performance budgets, instrumentation, accessibility, a written manual. The result should feel inevitable, as if it could not have been made any other way. That isn’t luck. That’s <em>editing</em>.</p>
+              </div>
+              <blockquote class="pull">
+                We are not prompt engineers.<br/>We are prompt <em>editors</em>.
+              </blockquote>
+              <div class="press-check" aria-hidden="true">
+                <div class="mono pc-head">PRESS CHECK / RUN 04 <span class="dim">— APPROVED 16:20, DRY AT 04:12</span></div>
+                <div class="pc-strip">
+                  <div class="pc-patch pc-bone"><span class="mono">BONE</span></div>
+                  <div class="pc-patch pc-verm"><span class="mono">VERM 100%</span></div>
+                  <div class="pc-patch pc-cob"><span class="mono">COBALT 70%</span></div>
+                  <div class="pc-patch pc-over"><span class="mono">OVERPRINT</span></div>
+                  <div class="pc-patch pc-reg"><span class="mono">REGISTER ±0.1</span></div>
+                </div>
+                <div class="mono dim pc-foot">DENSITY 1.42 / 1.38 / 1.51 &nbsp;·&nbsp; STOCK 120GSM UNCOATED &nbsp;·&nbsp; NO RETOUCHING</div>
+              </div>
+              <div class="refusals">
+                <div class="mono refusals-head">STOPPED DOING, EFFECTIVE 2019</div>
+                <ul>
+                  <li>Pitch decks</li>
+                  <li>Mood boards</li>
+                  <li>Discovery phases</li>
+                  <li>“Solutions”</li>
+                  <li>Hero sections</li>
+                </ul>
+                <div class="mono dim refusals-foot">The work is the argument. Everything else is a slide.</div>
+              </div>
+              <div class="house-rules">
+                <div class="mono rule-head">THREE HOUSE RULES, POSTED BY THE DOOR</div>
+                <ol>
+                  <li><span class="mono num">i.</span> Feeling is data. Collect it like data.</li>
+                  <li><span class="mono num">ii.</span> Ship the manual with the thing.</li>
+                  <li><span class="mono num">iii.</span> Nobody remembers the deck.</li>
+                </ol>
+              </div>
+            </div>
+
+            <aside class="premise-side">
+              <div class="ledger-box">
+                <div class="mono ledger-head">THE LEDGER, AS OF TODAY</div>
+                <dl>
+                  <div><dt>Editions shipped</dt><dd class="mono">61</dd></div>
+                  <div><dt>Median edition</dt><dd class="mono">5 wks</dd></div>
+                  <div><dt>Pitch decks written</dt><dd class="mono">0</dd></div>
+                  <div><dt>People</dt><dd class="mono">6</dd></div>
+                  <div><dt>Dogs</dt><dd class="mono">2</dd></div>
+                  <div><dt>Plotter</dt><dd class="mono">1</dd></div>
+                </dl>
+                <div class="ledger-foot mono dim">† One dog is a consultant.</div>
+              </div>
+              <div class="margin-note">
+                <span class="mono">MARGINALIA, LEFT IN BY MISTAKE</span>
+                <p class="serif-i">We have never once been asked for a “digital experience”. We are grateful.</p>
+              </div>
+              <div class="signature">
+                <span class="serif-i">M. &amp; J.</span>
+                <span class="mono dim">FOUNDERS, RESPECTIVELY</span>
+              </div>
+            </aside>
+          </div>
+
+          <footer class="p-foot">
+            <span class="mono dim">02</span>
+            <span class="mono dim">SET IN ROTTERDAM. WARMED BY HAND.</span>
+            <button class="cont mono" type="button" data-goto="2">CONTINUED ON PANEL 03 <svg class="ico"><use href="#i-arrow"/></svg></button>
+          </footer>
+        </div>
+
+        <div class="latent" aria-hidden="true">
+          <div class="cc-tag mono">CARBON COPY / 02</div>
+          <p class="lat latent--a">If you can explain it, it&rsquo;s already too late.</p>
+          <p class="lat latent--b">Client note, verbatim: “make it feel like September.” Shipped.</p>
+          <p class="lat latent--c serif-i">The ink warms where you stand. This is the only analytics we keep.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ 03 METHOD ═══════════════ -->
+    <section class="panel p-method" id="panel-3" data-index="2" data-title="THE METHOD" aria-label="The method">
+      <div class="paper">
+        <div class="p-inner">
+          <header class="p-head">
+            <div class="mono kicker"><span class="kicker-num">02</span> THE METHOD</div>
+            <div class="mono dim">PANEL 03 / 09</div>
+          </header>
+
+          <div class="method-top">
+            <h2 class="method-head display-serif serif-i misreg">Printed in<br/>four passes.</h2>
+            <p class="method-intro">Most studios sell you a process diagram. Here is ours, with the failure rates left in. Each pass exists to make the next one cheaper.</p>
+          </div>
+
+          <div class="passes">
+            <article class="pass" data-pass="1" tabindex="0">
+              <div class="pass-rule"></div>
+              <div class="foldlet" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+              <div class="pass-num mono">01</div>
+              <h3 class="pass-name">Feel</h3>
+              <p>We start with the feeling, not the feature list. The smallest thing that produces it gets built in 48 hours: a click, a page, a sound. If the feeling isn’t there by Friday, we say so while it is still cheap.</p>
+              <div class="pass-out">
+                <div class="mono pass-out-head">IN THE ENVELOPE</div>
+                <ul><li>48-hour prototype</li><li>a written read</li><li>a go / no-go</li></ul>
+              </div>
+              <div class="pass-stat mono"><span>48 hrs</span> to first provocation</div>
+            </article>
+
+            <article class="pass" data-pass="2" tabindex="0">
+              <div class="pass-rule"></div>
+              <div class="foldlet" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+              <div class="pass-num mono">02</div>
+              <h3 class="pass-name">Falsify</h3>
+              <p>We try to kill it. Five real users, a stopwatch, bad wifi, a hostile demo. Anything that only works in the room gets cut. Roughly 60% of what exists on Thursday does not survive Monday. That week is the most valuable one you’ll pay for.</p>
+              <div class="pass-out">
+                <div class="mono pass-out-head">IN THE ENVELOPE</div>
+                <ul><li>five recorded tests</li><li>a kill list</li><li>a sharper, cheaper idea</li></ul>
+              </div>
+              <div class="pass-stat mono"><span>60%</span> discarded, gladly</div>
+            </article>
+
+            <article class="pass" data-pass="3" tabindex="0">
+              <div class="pass-rule"></div>
+              <div class="foldlet" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+              <div class="pass-num mono">03</div>
+              <h3 class="pass-name">Forge</h3>
+              <p>Now it becomes real. Typeset, instrumented, tested on the devices your customers actually hold. Design and engineering share one file from day one. No handover, no translation loss, no “dev-ready” fiction.</p>
+              <div class="pass-out">
+                <div class="mono pass-out-head">IN THE ENVELOPE</div>
+                <ul><li>the working thing</li><li>device lab notes</li><li>a manual, drafted</li></ul>
+              </div>
+              <div class="pass-stat mono"><span>1 file</span> two pairs of hands</div>
+            </article>
+
+            <article class="pass" data-pass="4" tabindex="0">
+              <div class="pass-rule"></div>
+              <div class="foldlet" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+              <div class="pass-num mono">04</div>
+              <h3 class="pass-name">Forget</h3>
+              <p>We ship, then write the manual, the runbook, and the part nobody puts in the case study: what we would do differently. The last deliverable is a team that doesn’t need us. We count that as a feature.</p>
+              <div class="pass-out">
+                <div class="mono pass-out-head">IN THE ENVELOPE</div>
+                <ul><li>the handover</li><li>a runbook</li><li>a postmortem, unflinching</li></ul>
+              </div>
+              <div class="pass-stat mono"><span>0</span> retainers required</div>
+            </article>
+          </div>
+
+          <div class="week">
+            <div class="mono week-head">A TYPICAL EDITION, FIVE WEEKS</div>
+            <div class="week-track">
+              <span class="mono wk">WK 1</span><span class="mono wk">WK 2</span><span class="mono wk">WK 3</span><span class="mono wk">WK 4</span><span class="mono wk">WK 5</span>
+              <div class="week-bar bar-feel"><i class="mono">FEEL</i><i class="mono">FALSIFY</i><i class="mono">FORGE</i><i class="mono">FORGET</i></div>
+              <div class="week-notes mono dim">We do not work weekends. The plotter does.</div>
+            </div>
+          </div>
+
+          <footer class="p-foot">
+            <span class="mono dim">03</span>
+            <span class="mono dim">† “DELIGHTFUL” IS USED ONCE PER PROJECT.</span>
+            <button class="cont mono" type="button" data-goto="3">CONTINUED ON PANEL 04 <svg class="ico"><use href="#i-arrow"/></svg></button>
+          </footer>
+        </div>
+
+        <div class="latent" aria-hidden="true">
+          <div class="cc-tag mono">CARBON COPY / 03</div>
+          <p class="lat latent--a">Pass 2 is named after Popper. Pass 4 is named after a nap.</p>
+          <p class="lat latent--b serif-i">The 48-hour prototype is usually the product. We just don’t tell the client until week four.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ 04 APERTURE ═══════════════ -->
+    <section class="panel p-aperture" id="panel-4" data-index="3" data-title="EDITION 038 · APERTURE" aria-label="Edition 038, Aperture">
+      <div class="paper">
+        <div class="p-inner">
+          <header class="p-head">
+            <div class="mono kicker"><span class="kicker-num">03</span> EDITION 038 · APERTURE OPTICS, KYOTO</div>
+            <div class="mono dim">PANEL 04 / 09</div>
+          </header>
+
+          <div class="case-grid">
+            <div class="case-copy">
+              <h2 class="case-head display-serif serif-i misreg">A shutter you can hear in the dark.</h2>
+              <p class="case-lede">A camera app for a 71-year-old lens maker. The brief arrived as one sentence: <em>“It should feel like the lens, not the phone.”</em></p>
+              <div class="case-body">
+                <p>We removed eighty per cent of the interface. No grid, no presets, no scene detection, no “AI”. One ring you drag with your thumb, and a shutter sound recorded in the factory in Kyoto — forty-one takes, one broken microphone, one engineer who kept saying <em>more like a door closing.</em></p>
+                <p>The final shutter is deliberately seven milliseconds late. Early enough to feel instant, late enough to feel mechanical. Listen with headphones. Some people cry. We have stopped asking why.</p>
+              </div>
+              <div class="struck">
+                <div class="mono struck-head">STRUCK FROM THE BRIEF</div>
+                <ul>
+                  <li>grid</li><li>presets</li><li>scene detection</li><li>menus</li><li>splash screen</li>
+                </ul>
+                <div class="serif-i struck-note">Every one of them was requested. None survived the first Thursday.</div>
+              </div>
+              <figure class="wave">
+                <div class="mono wave-head">SHUTTER TAKE 41 / KYOTO <span class="dim">— 0.38 SEC, MONO, 48K</span></div>
+                <div class="wave-bars" id="waveBars" aria-hidden="true"></div>
+                <div class="wave-axis mono dim"><span>0.00</span><span>0.19</span><span>0.38 SEC</span></div>
+                <figcaption class="mono dim">FORTY-ONE TAKES. ONE KEPT. THE LAST 7MS ARE DELIBERATE.</figcaption>
+              </figure>
+              <div class="csheet">
+                <div class="csheet-head mono">CONTACT SHEET / TAKE 41 <span class="dim">— FUJI 400, PUSHED ONE STOP</span></div>
+                <div class="cframes">
+                  <figure class="cframe"><div class="cf c1"></div><figcaption class="mono">01 · FOGGED</figcaption></figure>
+                  <figure class="cframe"><div class="cf c2"></div><figcaption class="mono">08 · TOO DARK</figcaption></figure>
+                  <figure class="cframe"><div class="cf c3"></div><figcaption class="mono">17 · FOCUS</figcaption></figure>
+                  <figure class="cframe"><div class="cf c4"></div><figcaption class="mono">29 · TOO LOUD</figcaption></figure>
+                  <figure class="cframe is-kept"><div class="cf c5"></div><figcaption class="mono">41 · KEPT</figcaption></figure>
+                  <figure class="cframe"><div class="cf c6"></div><figcaption class="mono">42 · AFTER</figcaption></figure>
+                </div>
+              </div>
+              <div class="case-stats">
+                <div><span class="stat-num">41</span><span class="mono">SHUTTER TAKES</span></div>
+                <div><span class="stat-num">7<small>ms</small></span><span class="mono">DELIBERATE DELAY</span></div>
+                <div><span class="stat-num">3</span><span class="mono">WEEKS</span></div>
+                <div><span class="stat-num">0</span><span class="mono">MENUS</span></div>
+              </div>
+              <div class="case-tags mono"><span>SWIFT</span><span>METAL</span><span>CORE HAPTICS</span><span>2 PEOPLE</span></div>
+              <blockquote class="case-quote">
+                <span class="serif-i">“It sounds like my father’s camera.”</span>
+                <span class="mono dim">— BETA TESTER, OSAKA, 03:12</span>
+              </blockquote>
+            </div>
+
+            <div class="case-art">
+              <div class="iris" id="iris">
+                <canvas id="irisPhoto" role="img" aria-label="A two-colour halftone print of a moon over water"></canvas>
+                <svg class="iris-blades" id="irisBlades" viewBox="0 0 400 400" aria-hidden="true"></svg>
+                <div class="iris-hole-ring" aria-hidden="true"></div>
+                <div class="iris-ui mono">
+                  <span>ƒ/2.8</span><span id="irisPct">00%</span>
+                </div>
+                <div class="iris-ticks" id="irisTicks" aria-hidden="true"></div>
+              </div>
+              <div class="iris-cap mono">
+                <span class="cap-key">FIG. 2</span>
+                <span>DRAG OR CLICK THE RING.<br/>EIGHT BLADES. ALL DELIBERATE.</span>
+              </div>
+              <p class="iris-note serif-i">The photograph behind the iris is generated,<br/>like every image on this sheet.</p>
+            </div>
+          </div>
+
+          <footer class="p-foot">
+            <span class="mono dim">04</span>
+            <span class="mono dim">FIELD RECORDING: KYOTO, 04:40. NO FILTERS.</span>
+            <button class="cont mono" type="button" data-goto="4">CONTINUED ON PANEL 05 <svg class="ico"><use href="#i-arrow"/></svg></button>
+          </footer>
+        </div>
+
+        <div class="latent" aria-hidden="true">
+          <div class="cc-tag mono">CARBON COPY / 04</div>
+          <p class="lat latent--a">The 41st take is the 3rd take, slowed by 7ms. Do not tell the client.</p>
+          <p class="lat latent--b serif-i">He still shoots film. We shipped an app. Everyone is happy.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ 05 NIGHT KITCHEN ═══════════════ -->
+    <section class="panel p-kitchen" id="panel-5" data-index="4" data-title="EDITION 031 · NIGHT KITCHEN" aria-label="Edition 031, Night Kitchen">
+      <div class="paper">
+        <div class="p-inner">
+          <header class="p-head p-head--dark">
+            <div class="mono kicker"><span class="kicker-num">04</span> EDITION 031 · NIGHT KITCHEN, ROTTERDAM</div>
+            <div class="mono dim">PANEL 05 / 09</div>
+          </header>
+
+          <div class="kitchen-top">
+            <h2 class="kitchen-head display-serif serif-i">Dinner service is a real-time system.</h2>
+            <p class="kitchen-intro">A restaurant OS for a forty-seat room that refuses to close. Offline-first. One screen. No training manual, because the staff turns over every season.</p>
+          </div>
+
+          <div class="kitchen-grid">
+            <div class="kitchen-copy">
+              <p>Tickets print before the tap finishes. If the wifi dies, nothing changes. If the printer dies, the pass screen coughs in 200 milliseconds. If both die, the app makes a noise you can hear from the walk-in.</p>
+              <p>We sat on the pass for six services and wrote down every swear word. The interface now contains none of them. The kitchen still does.</p>
+              <blockquote class="kitchen-quote">
+                <span class="serif-i">“The app is not the kitchen. The app is the pass.”</span>
+                <span class="mono dim">— CHEF, AFTER SERVICE 5</span>
+              </blockquote>
+              <div class="plan-row">
+              <div class="plan">
+                <svg class="plan-svg" viewBox="0 0 380 150" role="img" aria-label="Floor plan of Night Kitchen, drawn after the third service">
+                  <defs>
+                    <pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                      <line x1="0" y1="0" x2="0" y2="6" stroke="rgba(255,59,0,0.55)" stroke-width="1"/>
+                    </pattern>
+                  </defs>
+                  <g fill="none" stroke="rgba(232,226,212,0.42)" stroke-width="1">
+                    <rect x="8" y="8" width="364" height="134"/>
+                    <rect x="14" y="14" width="352" height="122" stroke="rgba(232,226,212,0.18)"/>
+                    <rect x="14" y="14" width="44" height="122"/>
+                    <rect x="146" y="10" width="86" height="30"/>
+                    <rect x="242" y="14" width="124" height="18" stroke="rgba(232,226,212,0.2)"/>
+                    <line x1="14" y1="74" x2="58" y2="74"/>
+                    <path d="M102 38 h34 v34 h40" stroke-dasharray="3 4" stroke="rgba(255,59,0,0.5)"/>
+                    <path d="M190 100 h44 v-30" stroke-dasharray="3 4" stroke="rgba(255,59,0,0.5)"/>
+                  </g>
+                  <g fill="none" stroke="rgba(232,226,212,0.55)" stroke-width="1">
+                    <circle cx="102" cy="52" r="13"/><circle cx="140" cy="80" r="13"/>
+                    <circle cx="196" cy="54" r="13"/><circle cx="252" cy="60" r="13"/>
+                    <circle cx="304" cy="54" r="10"/><circle cx="300" cy="104" r="13"/>
+                    <circle cx="240" cy="108" r="13"/><circle cx="178" cy="108" r="13"/>
+                    <circle cx="116" cy="110" r="10"/>
+                  </g>
+                  <g fill="rgba(255,59,0,0.85)">
+                    <circle cx="102" cy="46" r="1.7"/><circle cx="140" cy="86" r="1.7"/>
+                    <circle cx="196" cy="54" r="1.7"/><circle cx="252" cy="66" r="1.7"/>
+                    <circle cx="300" cy="110" r="1.7"/>
+                  </g>
+                  <g fill="rgba(232,226,212,0.35)">
+                    <circle cx="220" cy="34" r="1.2"/><circle cx="228" cy="34" r="1.2"/><circle cx="236" cy="34" r="1.2"/>
+                    <circle cx="36" cy="34" r="1.2"/><circle cx="36" cy="48" r="1.2"/><circle cx="36" cy="62" r="1.2"/>
+                  </g>
+                  <rect x="146" y="10" width="86" height="30" fill="url(#hatch)" opacity="0.55"/>
+                  <g fill="rgba(232,226,212,0.55)" font-family="var(--mono)" font-size="5.2" letter-spacing="1">
+                    <text x="152" y="24">PASS</text>
+                    <text x="20" y="128">BAR</text>
+                    <text x="330" y="128">40 SEATS</text>
+                    <text x="330" y="22">N ↑</text>
+                    <text x="264" y="140">0 ——— 4M</text>
+                  </g>
+                </svg>
+                <div class="plan-cap mono">
+                  <span>PLAN 01 / 40 SEATS</span>
+                  <span class="dim">PASS AT NORTH. BAR AT WEST.</span>
+                  <span class="dim">DRAWN AFTER SERVICE 3.</span>
+                </div>
+              </div>
+              <div class="service-log">
+                <div class="mono sl-head">SERVICE LOG <span class="dim">— NIGHT 214</span></div>
+                <div class="sl-row mono"><span class="sl-time">21:40</span><span>Last order called</span><span class="sl-flag">0 VOID</span></div>
+                <div class="sl-row mono"><span class="sl-time">22:06</span><span>Printer jam, forty seconds</span><span class="sl-flag">HELD</span></div>
+                <div class="sl-row mono"><span class="sl-time">23:12</span><span>Wifi died. Nobody noticed.</span><span class="sl-flag">LOCAL</span></div>
+                <div class="sl-row mono"><span class="sl-time">00:31</span><span>Chef read the screen</span><span class="sl-flag">ONCE</span></div>
+                <div class="sl-row mono"><span class="sl-time">01:40</span><span>Doors</span><span class="sl-flag sl-hot">18MS</span></div>
+                <div class="sl-note serif-i">“The ticket is the truth. Everything else is a rumour.”</div>
+              </div>
+              </div>
+              <div class="kitchen-stats">
+                <div><span class="kstat">2,400</span><span class="mono">COVERS / WEEK</span></div>
+                <div><span class="kstat">0</span><span class="mono">DROPPED TICKETS</span></div>
+                <div><span class="kstat">18<small>ms</small></span><span class="mono">TAP → PRINT</span></div>
+              </div>
+              <div class="case-tags mono"><span>EXPO / RN</span><span>SQLITE</span><span>OFFLINE-FIRST</span><span>4 PEOPLE</span></div>
+            </div>
+
+            <button class="ticket" id="ticket" type="button" aria-label="Kitchen ticket, click to advance the order">
+              <div class="ticket-head">
+                <span class="mono">NIGHT KITCHEN</span>
+                <span class="mono">TICKET 0412</span>
+              </div>
+              <div class="ticket-meta mono">
+                <span>19:42:07</span><span>TABLE 12</span><span>GUESTS 2</span>
+              </div>
+              <div class="ticket-items">
+                <div><span>2×</span><span>Oysters, mignonette</span></div>
+                <div><span>1×</span><span>Leek, grilled, no butter <b>!</b></span></div>
+                <div><span>1×</span><span>Turbot, beurre blanc</span></div>
+                <div class="mod"><span></span><span>— allergy: shellfish (table)</span></div>
+                <div><span>1×</span><span>Rice pudding, burnt sugar</span></div>
+              </div>
+              <div class="ticket-status">
+                <span class="stamp" id="ticketStamp">FIRED</span>
+                <span class="mono dim">CLICK TO ADVANCE</span>
+              </div>
+              <div class="ticket-perf" aria-hidden="true"></div>
+              <div class="ticket-foot mono">PRINTED 19:42:07 · PASS / 02</div>
+            </button>
+          </div>
+
+          <div class="kitchen-side mono" aria-hidden="true">NIGHT KITCHEN / SERVICE 214 / 18MS</div>
+          <div class="kitchen-big" aria-hidden="true">18<span>ms</span></div>
+
+          <footer class="p-foot p-foot--dark">
+            <span class="mono dim">05</span>
+            <span class="mono dim">THE LAST ORDER LEAVES AT 01:40.</span>
+            <button class="cont mono" type="button" data-goto="5">CONTINUED ON PANEL 06 <svg class="ico"><use href="#i-arrow"/></svg></button>
+          </footer>
+        </div>
+
+        <div class="latent latent--dark" aria-hidden="true">
+          <div class="cc-tag mono">CARBON COPY / 05</div>
+          <p class="lat latent--a">Service ends at 01:40. The app has never missed a ticket. The chef has missed several.</p>
+          <p class="lat latent--b serif-i">We recorded the pass for six nights. The app is quieter than the room. On purpose.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ 06 MATERIALS ═══════════════ -->
+    <section class="panel p-materials" id="panel-6" data-index="5" data-title="MATERIALS" aria-label="Materials">
+      <div class="paper">
+        <div class="p-inner">
+          <header class="p-head">
+            <div class="mono kicker"><span class="kicker-num">05</span> MATERIALS</div>
+            <div class="mono dim">PANEL 06 / 09</div>
+          </header>
+
+          <div class="materials-top">
+            <h2 class="materials-head display-serif serif-i misreg">We use materials,<br/>not logos.</h2>
+            <p class="materials-intro">Tools change. The question is whether the thing in your hand has grain. Here is what is on the bench this season, and what we reach for it for. <span class="mono dim">SHARE OF HOURS, 2025–26.</span></p>
+          </div>
+
+          <div class="materials-grid">
+            <div class="mat-left">
+            <div class="mat-table" id="matTable">
+              <div class="mat-row" tabindex="0" data-mat="ts">
+                <div class="mat-main"><span class="mat-idx mono">01</span><span class="mat-name">TypeScript</span><span class="mat-use mono">the whole front end</span><span class="mat-role mono">STRUCTURE</span><span class="mat-share mono">33%</span><span class="mat-bar"><i style="--w:33%"></i></span></div>
+                <div class="mat-spec"><code>type Feeling = "warm" | "wrong" | "not yet";</code><span>Everywhere, on purpose. The type system is the cheapest editor we employ.</span></div>
+              </div>
+              <div class="mat-row" tabindex="0" data-mat="swift">
+                <div class="mat-main"><span class="mat-idx mono">02</span><span class="mat-name">Swift / Metal</span><span class="mat-use mono">the camera pipeline</span><span class="mat-role mono">SURFACE</span><span class="mat-share mono">11%</span><span class="mat-bar"><i style="--w:11%"></i></span></div>
+                <div class="mat-spec"><code>let shutter = Haptic.intensity(0.7).delay(7.ms)</code><span>When the frame budget is a feeling. Usually both.</span></div>
+              </div>
+              <div class="mat-row" tabindex="0" data-mat="gl">
+                <div class="mat-main"><span class="mat-idx mono">03</span><span class="mat-name">GLSL</span><span class="mat-use mono">the ink + the light</span><span class="mat-role mono">INK</span><span class="mat-share mono">10%</span><span class="mat-bar"><i style="--w:10%"></i></span></div>
+                <div class="mat-spec"><code>float warmth = smoothstep(0.2, 0.8, fbm(p));</code><span>When a texture needs to move, or an illustration needs to be printed at 60fps.</span></div>
+              </div>
+              <div class="mat-row" tabindex="0" data-mat="rust">
+                <div class="mat-main"><span class="mat-idx mono">04</span><span class="mat-name">Rust</span><span class="mat-use mono">the unglamorous parts</span><span class="mat-role mono">HINGES</span><span class="mat-share mono">8%</span><span class="mat-bar"><i style="--w:8%"></i></span></div>
+                <div class="mat-spec"><code>fn fold(sheet: Sheet) -&gt; Sheet { sheet.with_crease() }</code><span>When failure is not a vibe. Print pipelines, file engines, anything that must not flinch.</span></div>
+              </div>
+              <div class="mat-row" tabindex="0" data-mat="pg">
+                <div class="mat-main"><span class="mat-idx mono">05</span><span class="mat-name">Postgres</span><span class="mat-use mono">the truth, kept</span><span class="mat-role mono">LEDGER</span><span class="mat-share mono">11%</span><span class="mat-bar"><i style="--w:11%"></i></span></div>
+                <div class="mat-spec"><code>select count(*) from editions where shipped_at is not null;</code><span>The truth, kept. Boring exactly where boring is a feature.</span></div>
+              </div>
+              <div class="mat-row" tabindex="0" data-mat="figma">
+                <div class="mat-main"><span class="mat-idx mono">06</span><span class="mat-name">Figma</span><span class="mat-use mono">the first 72 hours</span><span class="mat-role mono">DRAFTING</span><span class="mat-share mono">6%</span><span class="mat-bar"><i style="--w:6%"></i></span></div>
+                <div class="mat-spec"><code>frame 1440×900 · grid 12 · opinions strong</code><span>For the first 72 hours only. After that the real file is the product.</span></div>
+              </div>
+              <div class="mat-row" tabindex="0" data-mat="pencil">
+                <div class="mat-main"><span class="mat-idx mono">07</span><span class="mat-name">Pencil</span><span class="mat-use mono">the first draft</span><span class="mat-role mono">UNDECLARED</span><span class="mat-share mono">6%</span><span class="mat-bar"><i style="--w:6%"></i></span></div>
+                <div class="mat-spec"><code>a line, then another line, then a better line</code><span>Always. Mostly a Palomino HB. We are not precious about it.</span></div>
+              </div>
+              <div class="mat-row" tabindex="0" data-mat="sound">
+                <div class="mat-main"><span class="mat-idx mono">08</span><span class="mat-name">Sound</span><span class="mat-use mono">the last 10%</span><span class="mat-role mono">FOLEY</span><span class="mat-share mono">8%</span><span class="mat-bar"><i style="--w:8%"></i></span></div>
+                <div class="mat-spec"><code>a page turning, 41 times, at 03:12</code><span>Recorded, not licensed. The last 10% of feel is usually a sound.</span></div>
+              </div>
+              <div class="mat-row" tabindex="0" data-mat="paper">
+                <div class="mat-main"><span class="mat-idx mono">09</span><span class="mat-name">Paper</span><span class="mat-use mono">the proof</span><span class="mat-role mono">PROOF</span><span class="mat-share mono">5%</span><span class="mat-bar"><i style="--w:5%"></i></span></div>
+                <div class="mat-spec"><code>120gsm uncoated, slightly warm, 1:1 proofs</code><span>We print the thing before we ship the thing. A screen lies about weight.</span></div>
+              </div>
+            </div>
+            <div class="mat-bottom">
+              <p class="serif-i">The tool disappears.<br/>The grain stays.</p>
+              <div class="mono dim">FIG. 4 — THE BENCH, 2026.<br/>NOTHING HERE IS A RELIGION.</div>
+            </div>
+            </div>
+
+            <aside class="mat-side">
+              <div class="rack-wrap">
+                <div class="mono rack-head">TYPE RACK <span class="dim">— DRAG TO SET</span></div>
+                <div class="rack" id="rack">
+                  <div class="rack-shelf" aria-hidden="true"></div>
+                </div>
+                <div class="mono rack-foot">
+                  <span>ARCHIVO 900</span><span>BODONI MODA</span><span>MARTIAN MONO</span>
+                </div>
+              </div>
+
+              <div class="bench-note">
+                <div class="mono bench-head">BENCH NOTE</div>
+                <p class="serif-i">One plotter, two dogs,<br/>no standing desks.</p>
+                <div class="mono dim bench-foot">THE PLOTTER IS LOUD<br/>ON WEDNESDAYS.</div>
+              </div>
+              <div class="bench-rules">
+                <div class="mono bench-head">BENCH RULES</div>
+                <ol>
+                  <li><span class="mono">01</span><span>If it doesn’t print, it doesn’t ship.</span></li>
+                  <li><span class="mono">02</span><span>No meetings before the coffee.</span></li>
+                  <li><span class="mono">03</span><span>The plotter is not a printer.</span></li>
+                </ol>
+              </div>
+              <div class="ink-key">
+                <div class="mono ink-head">INKS ON THIS SHEET</div>
+                <div class="ink-swatches">
+                  <div class="swatch"><span class="chipc bone"></span><span class="mono">BONE<br/><b>#E8E2D4</b></span></div>
+                  <div class="swatch"><span class="chipc ink"></span><span class="mono">INK<br/><b>#17120E</b></span></div>
+                  <div class="swatch"><span class="chipc verm"></span><span class="mono">VERMILION<br/><b>#FF3B00</b></span></div>
+                  <div class="swatch"><span class="chipc cob"></span><span class="mono">COBALT<br/><b>#1B2BFF</b></span></div>
+                  <div class="swatch"><span class="chipc over"></span><span class="mono">OVERPRINT<br/><b>VERM × COB</b></span></div>
+                </div>
+                <div class="mono dim ink-note">Mixed by hand. Allowed to misregister.</div>
+              </div>
+            </aside>
+          </div>
+
+          <footer class="p-foot">
+            <span class="mono dim">06</span>
+            <span class="mono dim">NO FAVOURITE FRAMEWORK. ONE FAVOURITE FEELING: THE TOOL DISAPPEARS.</span>
+            <button class="cont mono" type="button" data-goto="6">CONTINUED ON PANEL 07 <svg class="ico"><use href="#i-arrow"/></svg></button>
+          </footer>
+        </div>
+
+        <div class="latent" aria-hidden="true">
+          <div class="cc-tag mono">CARBON COPY / 06</div>
+          <p class="lat latent--a">The plotter is named Gerald. Gerald is not a person.</p>
+          <p class="lat latent--b serif-i">We tried a no-code tool once. It was very fast, and then it was not.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ 07 RECEIPTS ═══════════════ -->
+    <section class="panel p-receipts" id="panel-7" data-index="6" data-title="RECEIPTS" aria-label="Receipts">
+      <div class="paper">
+        <div class="p-inner">
+          <header class="p-head">
+            <div class="mono kicker"><span class="kicker-num">06</span> RECEIPTS</div>
+            <div class="mono dim">PANEL 07 / 09</div>
+          </header>
+
+          <div class="receipts-top">
+            <h2 class="receipts-head display-serif serif-i misreg">Filed under evidence.</h2>
+            <p class="receipts-intro">We keep the emails. Here are three, printed with permission, punctuation intact. Stamp one if you like; the refs are real either way.</p>
+          </div>
+
+          <div class="notes">
+            <svg class="thread" viewBox="0 0 1000 560" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M180 190 C 320 60, 460 120, 505 300 S 700 470, 840 250" />
+              <circle cx="180" cy="190" r="4"/><circle cx="505" cy="300" r="4"/><circle cx="840" cy="250" r="4"/>
+            </svg>
+
+            <article class="note note--1" tabindex="0">
+              <span class="tape" aria-hidden="true"></span>
+              <span class="pin" aria-hidden="true"></span>
+              <div class="mono note-meta">EDITION 038 <span>·</span> 2025 <span>·</span> APERTURE</div>
+              <blockquote>They found the thing we couldn’t describe, then built it in three weeks. Our board thinks we hired twelve people.</blockquote>
+              <div class="note-by"><span class="serif-i">Ines K.</span><span class="mono dim">CEO, APERTURE OPTICS</span></div>
+              <div class="note-stamp mono" aria-hidden="true">VERIFIED</div>
+              <button class="note-action mono" type="button">STAMP IT <svg class="ico"><use href="#i-plus"/></svg></button>
+            </article>
+
+            <article class="note note--2" tabindex="0">
+              <span class="tape" aria-hidden="true"></span>
+              <span class="pin" aria-hidden="true"></span>
+              <div class="mono note-meta">EDITION 031 <span>·</span> 2025 <span>·</span> NIGHT KITCHEN</div>
+              <blockquote>I asked for a website. They asked what my father’s workshop smelled like. The site smells like it.</blockquote>
+              <div class="note-by"><span class="serif-i">Tomás R.</span><span class="mono dim">OWNER, NIGHT KITCHEN</span></div>
+              <div class="note-stamp mono" aria-hidden="true">VERIFIED</div>
+              <button class="note-action mono" type="button">STAMP IT <svg class="ico"><use href="#i-plus"/></svg></button>
+            </article>
+
+            <article class="note note--3" tabindex="0">
+              <span class="tape" aria-hidden="true"></span>
+              <span class="pin" aria-hidden="true"></span>
+              <div class="mono note-meta">EDITION 026 <span>·</span> 2024 <span>·</span> HALFTONE HALL</div>
+              <blockquote>The handover manual is better than our internal docs. We have hired two people since. They read it in a day.</blockquote>
+              <div class="note-by"><span class="serif-i">Priya S.</span><span class="mono dim">DIRECTOR, HALFTONE HALL</span></div>
+              <div class="note-stamp mono" aria-hidden="true">VERIFIED</div>
+              <button class="note-action mono" type="button">STAMP IT <svg class="ico"><use href="#i-plus"/></svg></button>
+            </article>
+
+            <div class="inbox">
+              <div class="mono inbox-head">PRINTED FROM THE INBOX <span class="dim">/ 3 OF 41 / SUBJECT LINE ARCHIVE</span></div>
+              <div class="inbox-row"><span class="mono inbox-n">01</span><span class="inbox-from">ines@aperture.jp</span><span class="serif-i inbox-sub">“the shutter, one more time”</span><span class="mono dim inbox-date">12 MAR 2025 · 07:41</span></div>
+              <div class="inbox-row"><span class="mono inbox-n">02</span><span class="inbox-from">tomas@nightkitchen.nl</span><span class="serif-i inbox-sub">“what does it smell like”</span><span class="mono dim inbox-date">04 OCT 2024 · 22:18</span></div>
+              <div class="inbox-row"><span class="mono inbox-n">03</span><span class="inbox-from">p.singh@halftonehall.org</span><span class="serif-i inbox-sub">“the manual arrived”</span><span class="mono dim inbox-date">29 JAN 2024 · 09:03</span></div>
+            </div>
+            <aside class="exhibit-d" aria-label="A sealed fourth testimonial, under NDA until March 2027">
+              <div class="ex-head mono">EXHIBIT D / SEALED</div>
+              <div class="ex-flap" aria-hidden="true"></div>
+              <div class="ex-body">
+                <span class="serif-i">The fourth client</span>
+                <span class="mono">A hospital. Under NDA until 03 / 2027. What we can say: it does not look like a hospital.</span>
+              </div>
+              <span class="ex-seal mono">CONFIDENTIAL</span>
+              <span class="ex-thread" aria-hidden="true"></span>
+            </aside>
+            <div class="receipts-foot mono dim">
+              <span>STAMPS ARE REAL.</span>
+              <span>REFERENCES AVAILABLE ON REQUEST.</span>
+              <span>A FOURTH CLIENT SAID SOMETHING BETTER, UNDER NDA UNTIL 2027.</span>
+            </div>
+          </div>
+
+          <footer class="p-foot">
+            <span class="mono dim">07</span>
+            <span class="mono dim">NO TESTIMONIAL WAS TYPESET WITHOUT A FOLLOW-UP CALL.</span>
+            <button class="cont mono" type="button" data-goto="7">CONTINUED ON PANEL 08 <svg class="ico"><use href="#i-arrow"/></svg></button>
+          </footer>
+        </div>
+
+        <div class="latent" aria-hidden="true">
+          <div class="cc-tag mono">CARBON COPY / 07</div>
+          <p class="lat latent--a">The fourth client is a hospital. They asked us not to make it look like a hospital.</p>
+          <p class="lat latent--b serif-i">The stamps were carved from an eraser. The legality is aesthetic.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ 08 EDITIONS ═══════════════ -->
+    <section class="panel p-editions" id="panel-8" data-index="7" data-title="EDITIONS" aria-label="Editions and commissions">
+      <div class="paper">
+        <div class="p-inner">
+          <header class="p-head">
+            <div class="mono kicker"><span class="kicker-num">07</span> COMMISSIONS</div>
+            <div class="mono dim">PANEL 08 / 09</div>
+          </header>
+
+          <div class="editions-top">
+            <h2 class="editions-head display-serif serif-i misreg">Three editions. No best-seller badge.</h2>
+            <p class="editions-intro">We work on one to three things at a time. Every commission includes design and engineering in the same room, a written manual, and a handover you can use without us.</p>
+          </div>
+
+          <div class="editions-main">
+          <div class="edition-list">
+            <article class="edition" data-ed="one">
+              <div class="ed-top">
+                <div class="ed-id mono">EDITION OF ONE</div>
+                <h3 class="ed-name serif-i">A single, sharp thing.</h3>
+                <p class="ed-for">Best for a launch, a proof, a beautiful argument. One surface, done properly.</p>
+              </div>
+              <dl class="ed-specs">
+                <div><dt>Duration</dt><dd>3 weeks</dd></div>
+                <div><dt>Surfaces</dt><dd>1</dd></div>
+                <div><dt>People</dt><dd>2</dd></div>
+                <div><dt>Includes</dt><dd>Design + build + manual</dd></div>
+              </dl>
+              <div class="ed-price"><span class="mono dim">FROM</span><span class="ed-amount">€18,000</span><span class="mono dim">EXCL. VAT<sup>†</sup></span></div>
+            </article>
+
+            <article class="edition" data-ed="three">
+              <div class="ed-top">
+                <div class="ed-id mono">EDITION OF THREE</div>
+                <h3 class="ed-name serif-i">The whole system, three passes.</h3>
+                <p class="ed-for">Best for a product that has to feel like itself everywhere: app, site, and the thing in between.</p>
+              </div>
+              <dl class="ed-specs">
+                <div><dt>Duration</dt><dd>8 weeks</dd></div>
+                <div><dt>Surfaces</dt><dd>Up to 3</dd></div>
+                <div><dt>People</dt><dd>4</dd></div>
+                <div><dt>Includes</dt><dd>Sound, motion, manual</dd></div>
+              </dl>
+              <div class="ed-price"><span class="mono dim">FROM</span><span class="ed-amount">€42,000</span><span class="mono dim">EXCL. VAT<sup>†</sup></span></div>
+            </article>
+
+            <article class="edition" data-ed="standing">
+              <div class="ed-top">
+                <div class="ed-id mono">STANDING ORDER</div>
+                <h3 class="ed-name serif-i">A studio on retainer.</h3>
+                <p class="ed-for">For teams who would rather keep one door open than hire four people. Weekly crit, continuous delivery.</p>
+              </div>
+              <dl class="ed-specs">
+                <div><dt>Term</dt><dd>Rolling, 3 months min.</dd></div>
+                <div><dt>Capacity</dt><dd>2 slots</dd></div>
+                <div><dt>People</dt><dd>Whole bench</dd></div>
+                <div><dt>Includes</dt><dd>Everything above, in season</dd></div>
+              </dl>
+              <div class="ed-price"><span class="mono dim">FROM</span><span class="ed-amount">€6,500<small>/mo</small></span><span class="mono dim">EXCL. VAT<sup>†</sup></span></div>
+            </article>
+          </div>
+
+          <div class="order-wrap">
+            <form class="order" id="orderForm">
+              <div class="cut-line mono" aria-hidden="true"><svg class="ico"><use href="#i-scissors"/></svg></div>
+              <div class="order-head">
+                <div class="mono">FORM 04-B <span class="dim">/ COMMISSION REQUEST</span></div>
+                <div class="mono dim">CUT HERE, OR DON’T</div>
+              </div>
+              <p class="order-prompt serif-i">Tick what is true. We will take it from there.</p>
+              <div class="ticks">
+                <label class="tick"><input type="checkbox" name="true" value="I have a feeling." /><span class="box"><svg class="ico"><use href="#i-check"/></svg></span><span class="tick-label">I have a feeling.</span></label>
+                <label class="tick"><input type="checkbox" name="true" value="I have a deadline." /><span class="box"><svg class="ico"><use href="#i-check"/></svg></span><span class="tick-label">I have a deadline.</span></label>
+                <label class="tick"><input type="checkbox" name="true" value="I have a budget." /><span class="box"><svg class="ico"><use href="#i-check"/></svg></span><span class="tick-label">I have a budget.</span></label>
+                <label class="tick"><input type="checkbox" name="true" value="I have none of these yet." /><span class="box"><svg class="ico"><use href="#i-check"/></svg></span><span class="tick-label">I have none of these yet.</span></label>
+              </div>
+              <div class="order-next">
+                <div class="mono order-next-head">AFTER YOU SEND THIS</div>
+                <ol>
+                  <li><span class="mono">01</span><span>We write back within one working day. Usually with questions.</span></li>
+                  <li><span class="mono">02</span><span>An hour on a call, mostly us listening.</span></li>
+                  <li><span class="mono">03</span><span>We hold a slot, or tell you honestly that we shouldn’t.</span></li>
+                </ol>
+              </div>
+              <div class="order-ask">
+                <div class="mono order-next-head">WHAT WE ASK FOR</div>
+                <ol class="ask-list">
+                  <li><span class="mono">A</span><span>The feeling, in one sentence. Not the feature list.</span></li>
+                  <li><span class="mono">B</span><span>The constraint: a date, a number, a person who must say yes.</span></li>
+                  <li><span class="mono">C</span><span>One thing that must not break.</span></li>
+                </ol>
+              </div>
+              <div class="order-bottom">
+                <div class="mono dim order-note">No decks required.<br/>A feeling is enough.</div>
+                <button class="order-submit" id="orderSubmit" type="submit">
+                  <span class="serif-i">Begin a commission</span>
+                  <svg class="ico"><use href="#i-arrow"/></svg>
+                </button>
+              </div>
+              <div class="order-foot mono dim">† PRICES EXCLUDE VAT. VIBE INCLUDED.</div>
+            </form>
+          </div>
+          </div>
+
+          <div class="avail-band">
+            <div class="scribble mono">NO PLAN IS HIGHLIGHTED.<br/>READ THEM.</div>
+            <div class="slots">
+              <div class="mono slots-head">AVAILABILITY, AS OF TODAY</div>
+              <div class="slot-row mono"><span>Q1 2027</span><span class="slot-bar"><i style="--w:50%"></i></span><span>2 / 3</span></div>
+              <div class="slot-row mono"><span>Q2 2027</span><span class="slot-bar"><i style="--w:16%"></i></span><span>3 / 3</span></div>
+            </div>
+            <div class="mono dim slots-note">We cap the studio at three live editions.<br/>It is the only way the work stays warm.</div>
+          </div>
+
+          <footer class="p-foot">
+            <span class="mono dim">08</span>
+            <span class="mono dim">INVOICED IN EUROS. THE VIBE IS FREE.</span>
+            <button class="cont mono" type="button" data-goto="8">CONTINUED ON PANEL 09 <svg class="ico"><use href="#i-arrow"/></svg></button>
+          </footer>
+        </div>
+
+        <div class="latent" aria-hidden="true">
+          <div class="cc-tag mono">CARBON COPY / 08</div>
+          <p class="lat latent--a">If you tick all four, we will start on Monday. If you tick none, we will start on Monday.</p>
+          <p class="lat latent--b serif-i">A budget is just a feeling with a number attached.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ 09 COLOPHON ═══════════════ -->
+    <section class="panel p-colophon" id="panel-9" data-index="8" data-title="COLOPHON" aria-label="Colophon and contact">
+      <div class="paper">
+        <div class="p-inner">
+          <header class="p-head">
+            <div class="mono kicker"><span class="kicker-num">08</span> COLOPHON &amp; CONTACT</div>
+            <div class="mono dim">PANEL 09 / 09</div>
+          </header>
+
+          <div class="colophon-top">
+            <h2 class="contact-head display-serif serif-i misreg">Bring us<br/>a feeling.</h2>
+            <div class="contact-block">
+              <div class="mono contact-kicker">COMMISSIONS, COLLABORATIONS, COMPLAINTS</div>
+              <a class="contact-mail" href="mailto:hello@warmstatic.studio">hello@<br/>warmstatic.studio</a>
+              <div class="contact-meta">
+                <div><span class="mono dim">TELEPHONE</span><span class="mono">+31 10 341 0099</span></div>
+                <div><span class="mono dim">STUDIO</span><span class="mono">Scheepmakershaven 27<br/>3011 VC Rotterdam</span></div>
+                <div><span class="mono dim">NEXT SLOT</span><span class="mono">January 2027</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="colophon-grid">
+            <div class="colo-col">
+              <div class="mono colo-head">THE SHEET</div>
+              <p>One concertina of nine panels, printed live in your browser. You are looking at the whole site: there is no second page, no menu, no footer to scroll past. When you reach the end, you are at the end.</p>
+            </div>
+            <div class="colo-col">
+              <div class="mono colo-head">THE MAKING</div>
+              <dl>
+                <div><dt class="mono dim">TYPE</dt><dd>Archivo, Bodoni Moda, Martian Mono</dd></div>
+                <div><dt class="mono dim">INKS</dt><dd>Bone, ink, vermilion, cobalt</dd></div>
+                <div><dt class="mono dim">BUILD</dt><dd>Vite, TypeScript, one WebGL shader, no framework</dd></div>
+                <div><dt class="mono dim">TRACKING</dt><dd>None. Not even a pixel.</dd></div>
+                <div><dt class="mono dim">EASTER EGG</dt><dd>Press <kbd>F</kbd> to fold the sheet.</dd></div>
+              </dl>
+            </div>
+            <div class="colo-col">
+              <div class="mono colo-head">THE ROOM</div>
+              <p>We are above a working print shop. The stairs are steep, the coffee is honest, and the plotter is loud on Wednesdays. Ring twice. If nobody answers, we are on the pass at Night Kitchen.</p>
+              <div class="mono dim colo-sign">WS · ROTTERDAM · ISSUE 04</div>
+            </div>
+          </div>
+
+          <div class="map-band">
+            <div class="map-wrap">
+              <svg class="map-svg" viewBox="0 0 660 196" role="img" aria-label="Printed map of Scheepmakershaven, Rotterdam, with the studio marked">
+                <defs>
+                  <pattern id="water" width="7" height="7" patternUnits="userSpaceOnUse">
+                    <line x1="0" y1="7" x2="7" y2="0" stroke="rgba(27,43,255,0.35)" stroke-width="0.7"/>
+                  </pattern>
+                </defs>
+                <path d="M-10 124 C 120 100, 210 120, 300 104 S 520 68, 680 92 L 680 205 L -10 205 Z" fill="rgba(27,43,255,0.12)"/>
+                <path d="M-10 148 C 140 132, 260 148, 380 136 S 580 112, 680 124" fill="none" stroke="rgba(27,43,255,0.22)" stroke-width="0.8"/>
+                <path d="M-10 124 C 120 100, 210 120, 300 104 S 520 68, 680 92" fill="none" stroke="rgba(27,43,255,0.55)" stroke-width="1"/>
+                <g stroke="rgba(23,18,14,0.28)" stroke-width="0.8" fill="none">
+                  <path d="M0 30 H660"/><path d="M0 58 H660"/><path d="M0 84 H660"/>
+                  <path d="M64 0 V120"/><path d="M142 0 V114"/><path d="M222 0 V112"/><path d="M312 0 V108"/><path d="M398 0 V106"/><path d="M478 0 V102"/><path d="M556 0 V96"/><path d="M626 0 V94"/>
+                  <path d="M20 44 L150 66 L260 44 L390 60 L520 40 L650 52" stroke="rgba(27,43,255,0.35)"/>
+                </g>
+                <g fill="rgba(232,226,212,0.45)" stroke="rgba(23,18,14,0.3)" stroke-width="0.8">
+                  <rect x="72" y="8" width="60" height="16"/><rect x="150" y="38" width="62" height="14"/>
+                  <rect x="232" y="10" width="70" height="28"/><rect x="320" y="64" width="64" height="16"/>
+                  <rect x="406" y="12" width="58" height="22"/><rect x="486" y="66" width="58" height="12"/>
+                  <rect x="566" y="20" width="52" height="30"/><rect x="90" y="70" width="34" height="18"/>
+                </g>
+                <g stroke="rgba(23,18,14,0.55)" stroke-width="1" fill="none">
+                  <circle cx="342" cy="48" r="12"/>
+                  <path d="M342 28 V36 M342 60 V68 M322 48 H330 M354 48 H362"/>
+                </g>
+                <circle cx="342" cy="48" r="3.2" fill="#ff3b00"/>
+                <path d="M354 43 L386 24 H446" fill="none" stroke="#ff3b00" stroke-width="1"/>
+                <rect x="446" y="8" width="180" height="30" fill="#e8e2d4" opacity="0.88"/>
+                <g font-family="var(--mono)" font-size="7" letter-spacing="1.1" fill="rgba(23,18,14,0.72)">
+                  <text x="452" y="21">SCHEEPMAKERSHAVEN 27</text>
+                  <text x="452" y="32" font-size="5.4" fill="rgba(23,18,14,0.45)">51.9195° N / 4.4842° E</text>
+                  <text x="16" y="176" fill="rgba(27,43,255,0.7)">MAAS</text>
+                  <text x="590" y="52" fill="rgba(23,18,14,0.4)">N ↑</text>
+                  <text x="558" y="186">0 ——— 100M</text>
+                </g>
+              </svg>
+              <div class="mono dim map-cap">FIG. 5 — THE ROOM, IN PLAN. PRINTED AT 1:2000. NOT TO SCALE ANYMORE.</div>
+            </div>
+            <div class="map-side">
+              <div class="mono map-head">FINDING THE ROOM</div>
+              <p class="serif-i">Cross the bridge. Ignore the sign. Take the steep stairs beside the print shop. Ring twice.</p>
+              <div class="mono dim">TRAM 7 / WILLEMSBRUG / 4 MIN WALK<br/>THE LIFT IS A LIE. TAKE THE STAIRS.</div>
+            </div>
+          </div>
+
+          <div class="end-mark" aria-hidden="true">
+            <span class="mono dim">END OF SHEET</span>
+            <svg class="ico"><use href="#i-reg"/></svg>
+            <span class="mono dim">09 / 09</span>
+          </div>
+
+          <div class="tear" id="tear">
+            <div class="tear-back">
+              <span class="mono">CARBON COPY</span>
+              <span class="serif-i">Thank you for reading to the bottom.</span>
+              <button class="tear-restore mono" id="tearRestore" type="button">TAPE IT BACK</button>
+            </div>
+            <div class="tear-front" id="tearFront">
+              <div class="tear-perf" aria-hidden="true"></div>
+              <div class="tear-inner">
+                <span class="mono">TEAR ALONG THE DOTTED LINE</span>
+                <span class="tear-repeat mono">HELLO@WARMSTATIC.STUDIO · +31 10 341 0099 · SCHEEPMAKERSHAVEN 27, ROTTERDAM ·</span>
+                <span class="mono dim">KEEP THIS. WE DON’T SEND NEWSLETTERS.</span>
+              </div>
+              <button class="tear-btn mono" id="tearBtn" type="button">TEAR IT OFF</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="latent" aria-hidden="true">
+          <div class="cc-tag mono">CARBON COPY / 09</div>
+          <p class="lat latent--a">You reached the end. The ink is still warm. So are we.</p>
+          <p class="lat latent--b serif-i">This is the only page. Tell someone.</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<div class="cursor" id="cursor" aria-hidden="true">
+  <span class="cursor-h"></span><span class="cursor-v"></span>
+  <span class="cursor-dot"></span>
+  <span class="cursor-read mono" id="cursorRead">P.01 · 000,000</span>
+</div>
+
+<div class="toast mono" id="toast" role="status" aria-live="polite"></div>
+
+<script type="module" src="/src/main.ts"></script>
+</body>
+</html>
